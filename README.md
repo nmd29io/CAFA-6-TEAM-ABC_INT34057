@@ -58,7 +58,7 @@ Repository được tổ chức một cách khoa học để dễ dàng theo dõ
 ├── notebooks/                  <-- Chứa các file code chính
 │   ├── 01_Baseline_and_Ensemble_Best_Score.ipynb
 │   ├── 02_Advanced_Post_Processing_Experiments.ipynb
-│   └── experiments/              <-- Chứa các thử nghiệm song song
+│   └── experiments/              <-- Chứa các thử nghiệm
 │       ├── 03_Experiment_TensorFlow_T5.ipynb
 │       └── 04_Experiment_Multi_Ontology.ipynb
 │
@@ -128,7 +128,7 @@ Sau khi notebook chạy xong, file `submission.tsv` sẽ được tạo ra ở t
 
 Quá trình làm dự án không chỉ có một giải pháp duy nhất mà là một hành trình khám phá và loại trừ. Dưới đây là các thử nghiệm chính em đã thực hiện:
 
--   **Pipeline Tinh hoa (`02_Advanced_Post_Processing_Experiments.ipynb`):**
+-   **Pipeline (`02_Advanced_Post_Processing_Experiments.ipynb`):**
     Đây là nỗ lực tự xây dựng một pipeline có logic sâu hơn bằng cách cài đặt các module xử lý hậu kỳ dựa trên kiến thức sinh học, bao gồm **Negative Propagation** và **Hierarchy Propagation**. Dù điểm số (0.257) không phải cao nhất, đây là phiên bản thể hiện sự hiểu biết sâu sắc nhất của em về cấu trúc bài toán.
 
 -   **Thử nghiệm Framework & Embedding (`experiments/03_Experiment_TensorFlow_T5.ipynb`):**
