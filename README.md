@@ -1,4 +1,4 @@
-# Dự án Cuối kỳ: CAFA 6 - Dự đoán Chức năng Protein (INT3405)
+# Dự án Cuối kỳ: CAFA 6 - Dự đoán Chức năng Protein 
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Kaggle](https://img.shields.io/badge/Kaggle-CAFA%206-brightgreen.svg)
@@ -7,21 +7,21 @@
 
 ## 1. Tổng quan Dự án
 
-Đây là repository mã nguồn cho dự án cuối kỳ môn học **INT3405 – Khai phá Dữ liệu và Học máy**. Dự án tập trung vào việc giải quyết bài toán dự đoán chức năng protein trong cuộc thi **CAFA 6 (Critical Assessment of Functional Annotation)** trên nền tảng Kaggle.
+Đây là repository mã nguồn cho dự án cuối kỳ môn học **INT3405 – Học máy**. Dự án tập trung vào việc giải quyết bài toán dự đoán chức năng protein trong cuộc thi **CAFA 6 (Critical Assessment of Functional Annotation)** trên nền tảng Kaggle.
 
 Mục tiêu chính là xây dựng một pipeline học máy có khả năng gán các thuật ngữ Gene Ontology (GO terms) cho các trình tự protein chưa được chú thích với độ chính xác cao nhất có thể.
 
 -   **Sinh viên thực hiện:** Nguyễn Minh Đức
 -   **MSSV:** 23020049
--   **Giảng viên hướng dẫn:** ThS. Tạ Việt Cường
+-   **Giảng viên hướng dẫn:** Tạ Việt Cường
 
 ## 2. Kết quả Đạt được
 
 Dự án đã trải qua nhiều vòng thử nghiệm và cải tiến, với kết quả cuối cùng được ghi nhận trên bảng xếp hạng của Kaggle như sau:
 
-| Tên Nhóm (Kaggle)      | Public Score Cao Nhất | Thứ hạng (Public LB) | Phiên bản tốt nhất     |
-| ---------------------- | --------------------- | -------------------- | ---------------------- |
-| `ABC_INT34057`         | **0.312**             | **326 / 1073**       | `version 2 - v2.ipynb` |
+| Tên Nhóm (Kaggle)      | Public Score Cao Nhất | Thứ hạng (Public LB) | Phiên bản tốt nhất                                        |
+| ---------------------- | --------------------- | -------------------- | --------------------------------------------------------- |
+| `ABC_INT34057`         | **0.312**             | **326 / 1073**       | `01_Baseline_and_Ensemble_Best_Score.ipynb`               |
 
 ## 3. Phương pháp tiếp cận (Phiên bản tốt nhất)
 
@@ -44,45 +44,57 @@ graph TD
 ```
 
 **Các bước chính:**
-1.  **Trích xuất Đặc trưng:** Sử dụng vector embedding tiền huấn luyện từ mô hình ngôn ngữ protein **ESM-2** để biểu diễn mỗi protein.
-2.  **Mô hình Deep Learning:** Huấn luyện một mạng nơ-ron đơn giản để dự đoán GO Terms từ các vector embedding.
-3.  **Kết hợp Homology:** Lấy kết quả từ hai nguồn dữ liệu homology đã được công bố trên Kaggle.
+1.  **Trích xuất Đặc trưng:** Sử dụng vector embedding tiền huấn luyện từ mô hình ngôn ngữ protein **ESM-2**.
+2.  **Mô hình Deep Learning:** Huấn luyện một mạng nơ-ron đơn giản với PyTorch.
+3.  **Kết hợp Homology:** Lấy kết quả từ hai nguồn dữ liệu homology uy tín.
 4.  **Ensemble:** Gộp kết quả từ 3 nguồn trên bằng kỹ thuật **Max Pooling** – lấy điểm số tin cậy cao nhất cho mỗi cặp `(Protein, GO Term)`.
 
 ## 4. Cấu trúc Repository
 
+Repository được tổ chức một cách khoa học để dễ dàng theo dõi và kiểm tra.
+
 ```
 .
-├── kaggle/
-│   └── input/                <-- Thư mục chứa toàn bộ dữ liệu (cần tạo và tải về)
-├── version 2 - v2.ipynb      <-- Notebook chính để tái tạo kết quả 0.312 (RECOMMENDED)
-├── version-3(4).ipynb        <-- Notebook thử nghiệm với các kỹ thuật xử lý hậu kỳ
-├── requirements.txt          <-- Các thư viện Python cần thiết
-└── README.md                 <-- File hướng dẫn này
+├── notebooks/                  <-- Chứa các file code chính
+│   ├── 01_Baseline_and_Ensemble_Best_Score.ipynb
+│   ├── 02_Advanced_Post_Processing_Experiments.ipynb
+│   └── experiments/              <-- Chứa các thử nghiệm song song
+│       ├── 03_Experiment_TensorFlow_T5.ipynb
+│       └── 04_Experiment_Multi_Ontology.ipynb
+│
+├── report/
+│   └── BaoCao_NguyenMinhDuc_23020049.pdf
+│
+├── .gitignore                                   
+├── README.md                   
+└── requirements.txt            
 ```
 
 ## 5. Hướng dẫn Tái tạo Kết quả (Score 0.312)
 
 Đây là hướng dẫn chi tiết để chạy lại code và tạo ra file submission đạt điểm số cao nhất.
 
+### **Yêu cầu:**
+-   `Python 3.8+`
+-   `Git`
+
 ### Bước 1: Tải mã nguồn
 
 Clone repository này về máy của bạn:
 ```bash
 git clone https://github.com/nmd29io/CAFA-6-TEAM-ABC_INT34057.git
-cd CAFA-6-TEAM-ABC_INT34057
-```
+cd CAFA-6-TEAM-ABC_INT34057```
 
-### Bước 2: Cài đặt các thư viện cần thiết
+### Bước 2: Cài đặt Môi trường (Cực kỳ quan trọng)
 
-Sử dụng file `requirements.txt` đã được cung cấp để cài đặt môi trường:
+Em đã chuẩn bị sẵn file `requirements.txt`. Chạy lệnh sau để cài đặt tất cả các thư viện cần thiết với đúng phiên bản:
+
 ```bash
 pip install -r requirements.txt
 ```
+*(**Lưu ý:** Nên thực hiện lệnh này trong một môi trường ảo - virtual environment - để tránh xung đột thư viện.)*
 
-### Bước 3: Tải và sắp xếp Dữ liệu
-
-Đây là bước quan trọng nhất. Vui lòng tạo cấu trúc thư mục và tải dữ liệu theo hướng dẫn.
+### Bước 3: Tải và Sắp xếp Dữ liệu
 
 1.  **Tạo thư mục `kaggle/input`** tại thư mục gốc của dự án:
     ```bash
@@ -90,43 +102,37 @@ pip install -r requirements.txt
     ```
 
 2.  **Tải các bộ dữ liệu từ Kaggle** và giải nén vào đúng các thư mục con bên trong `kaggle/input`:
-
-    -   **Dữ liệu chính của cuộc thi:**
+    -   **Dữ liệu chính cuộc thi:**
         -   **Link:** [https://www.kaggle.com/competitions/cafa-6-protein-function-prediction](https://www.kaggle.com/competitions/cafa-6-protein-function-prediction)
         -   **Giải nén vào:** `kaggle/input/cafa-6-protein-function-prediction/`
-
     -   **Dữ liệu Embedding ESM-2:**
         -   **Link:** [https://www.kaggle.com/datasets/zcalvin/cafa6-protein-embeddings-esm2](https://www.kaggle.com/datasets/zcalvin/cafa6-protein-embeddings-esm2)
         -   **Giải nén vào:** `kaggle/input/cafa6-protein-embeddings-esm2/`
-
     -   **Nguồn Homology 1:**
         -   **Link:** [https://www.kaggle.com/datasets/sergeifironov/foldseek-blastp-parthenos](https://www.kaggle.com/datasets/sergeifironov/foldseek-blastp-parthenos)
         -   **Giải nén vào:** `kaggle/input/foldseek-blastp-parthenos/`
-
     -   **Nguồn Homology 2:**
         -   **Link:** [https://www.kaggle.com/datasets/yuyijiong/foldseek-cafa](https://www.kaggle.com/datasets/yuyijiong/foldseek-cafa)
         -   **Giải nén vào:** `kaggle/input/foldseek-cafa/`
 
 ### Bước 4: Chạy Notebook
 
-Mở và chạy toàn bộ các cell trong notebook **`version 2 - v2.ipynb`** bằng Jupyter Notebook hoặc Jupyter Lab.
+Mở và chạy toàn bộ các cell trong notebook:
+**`notebooks/01_Baseline_and_Ensemble_Best_Score.ipynb`**
 
 ### Bước 5: Kiểm tra Kết quả
 
 Sau khi notebook chạy xong, file `submission.tsv` sẽ được tạo ra ở thư mục gốc. Đây chính là file đã được nộp lên Kaggle.
 
-## 6. Quá trình Phát triển và Thử nghiệm
+## 6. Quá trình Phát triển và các Thử nghiệm
 
-Bên cạnh phiên bản tốt nhất, repository cũng chứa các thử nghiệm khác thể hiện quá trình nghiên cứu và nỗ lực "cá nhân hóa" pipeline của em.
+Quá trình làm dự án không chỉ có một giải pháp duy nhất mà là một hành trình khám phá và loại trừ. Dưới đây là các thử nghiệm chính em đã thực hiện:
 
--   **Nền tảng `version-3(4).ipynb`:** Phiên bản này là nỗ lực tự xây dựng một pipeline có logic sâu hơn bằng cách cài đặt các module xử lý hậu kỳ dựa trên kiến thức sinh học, bao gồm:
-    -   **Negative Propagation:** Loại bỏ các dự đoán sai dựa trên các chú thích "NOT" trong Gene Ontology.
-    -   **Hierarchy Propagation:** Lan truyền điểm số dự đoán lên các thuật ngữ cha trong cây phân cấp GO.
-    Mặc dù điểm số của hướng đi này thấp hơn (cao nhất là **0.257**), nó thể hiện sự hiểu biết sâu sắc về cấu trúc và quy tắc của bài toán.
+-   **Pipeline Tinh hoa (`02_Advanced_Post_Processing_Experiments.ipynb`):**
+    Đây là nỗ lực tự xây dựng một pipeline có logic sâu hơn bằng cách cài đặt các module xử lý hậu kỳ dựa trên kiến thức sinh học, bao gồm **Negative Propagation** và **Hierarchy Propagation**. Dù điểm số (0.257) không phải cao nhất, đây là phiên bản thể hiện sự hiểu biết sâu sắc nhất của em về cấu trúc bài toán.
 
--   **Thử nghiệm với Mô hình Chuyên biệt (Multi-Ontology Approach):** Em cũng đã thử nghiệm một hướng tiếp cận khác về kiến trúc mô hình. Thay vì huấn luyện một mô hình chung cho tất cả các GO Terms, em đã:
-    1.  Phân loại các GO Terms trong tập huấn luyện thành 3 nhánh Ontology chính: **Biological Process (BPO)**, **Molecular Function (MFO)**, và **Cellular Component (CCO)**.
-    2.  Huấn luyện **ba mô hình riêng biệt**, mỗi mô hình chuyên trách dự đoán các thuật ngữ trong một nhánh Ontology.
-    3.  Kết hợp kết quả dự đoán từ cả ba mô hình chuyên biệt này.
+-   **Thử nghiệm Framework & Embedding (`experiments/03_Experiment_TensorFlow_T5.ipynb`):**
+    Em đã chủ động xây dựng một pipeline song song bằng **TensorFlow/Keras và T5 embeddings** để so sánh hiệu quả. Kết quả cho thấy pipeline PyTorch/ESM-2 vẫn tốt hơn, giúp em tự tin hơn với lựa chọn công nghệ của mình.
 
-    **Kết quả:** Như trong lần nộp bài `Version 4 | Version 9 Multi-Ontology` (score **0.184**), phương pháp này cho kết quả thấp hơn. Điều này cho thấy với kiến trúc hiện tại, một mô hình tổng quát duy nhất lại hiệu quả hơn trong việc học các đặc trưng chung giữa các nhánh Ontology. Tuy nhiên, đây là một thử nghiệm quan trọng để khám phá các hướng đi tối ưu hóa khác nhau.
+-   **Thử nghiệm Kiến trúc Nâng cao (`experiments/04_Experiment_Multi_Ontology.ipynb`):**
+    Em đã thử nghiệm một kiến trúc phức tạp hơn, huấn luyện **3 mô hình riêng biệt** cho từng nhánh Ontology (BPO, CCO, MFO). Kết quả (0.184) thấp hơn, cho thấy một mô hình tổng quát duy nhất hiệu quả hơn với kiến trúc hiện tại, nhưng đây là một thử nghiệm quan trọng về mặt tư duy kiến trúc mô hình.
