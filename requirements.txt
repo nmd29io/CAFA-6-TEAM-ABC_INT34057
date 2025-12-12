@@ -1,1 +1,11 @@
-pandas, torch, scikit-learn, tqdm, numpy
+pandas
+torch
+scikit-learn
+tqdm
+numpy
+pronto
+joblib
+networkx
+# Thêm các thư viện khác nếu bạn nhớ ra, ví dụ: tensorflow, keras
+tensorflow
+keras
