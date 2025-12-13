@@ -57,10 +57,8 @@ Repository được tổ chức một cách khoa học để dễ dàng theo dõ
 .
 ├── notebooks/                  
 │   ├── 01_Baseline_and_Ensemble_Best_Score.ipynb
-│   └── experiments/              <-- Chứa các thử nghiệm
-│       ├── 02_Advanced_Post_Processing_Experiments.ipynb
-│       ├── 03_Experiment_TensorFlow_T5.ipynb
-│       └── 04_Experiment_Multi_Ontology.ipynb
+│   ├── 02_Advanced_Post_Processing_Experiments.ipynb
+│   └── 03_Experiment_Multi_Ontology.ipynb
 │
 ├── report/
 │   └── BaoCao_NguyenMinhDuc_23020049.pdf
@@ -81,9 +79,10 @@ Repository được tổ chức một cách khoa học để dễ dàng theo dõ
 ### Bước 1: Tải mã nguồn
 
 Clone repository này về máy của bạn:
-bash
+```bash
 git clone https://github.com/nmd29io/CAFA-6-TEAM-ABC_INT34057.git
-cd CAFA-6-TEAM-ABC_INT34057```
+cd CAFA-6-TEAM-ABC_INT34057
+```
 
 ### Bước 2: Cài đặt Môi trường (Cực kỳ quan trọng)
 
@@ -96,10 +95,7 @@ pip install -r requirements.txt
 
 ### Bước 3: Tải và Sắp xếp Dữ liệu
 
-1.  **Tạo thư mục `kaggle/input`** tại thư mục gốc của dự án:
-    ```bash
-    mkdir -p kaggle/input
-    ```
+1.  **Tạo thư mục `notebooks/kaggle/input`** tại thư mục gốc của dự án:
 
 2.  **Tải các bộ dữ liệu từ Kaggle** và giải nén vào đúng các thư mục con bên trong `kaggle/input`:
     -   **Dữ liệu chính cuộc thi:**
@@ -123,16 +119,3 @@ Mở và chạy toàn bộ các cell trong notebook:
 ### Bước 5: Kiểm tra Kết quả
 
 Sau khi notebook chạy xong, file `submission.tsv` sẽ được tạo ra ở thư mục gốc. Đây chính là file đã được nộp lên Kaggle.
-
-## 6. Quá trình Phát triển và các Thử nghiệm
-
-Quá trình làm dự án không chỉ có một giải pháp duy nhất mà là một hành trình khám phá và loại trừ. Dưới đây là các thử nghiệm chính em đã thực hiện:
-
--   **Pipeline (`02_Advanced_Post_Processing_Experiments.ipynb`):**
-    Đây là nỗ lực tự xây dựng một pipeline có logic sâu hơn bằng cách cài đặt các module xử lý hậu kỳ dựa trên kiến thức sinh học, bao gồm **Negative Propagation** và **Hierarchy Propagation**. Dù điểm số (0.257) không phải cao nhất, đây là phiên bản thể hiện sự hiểu biết sâu sắc nhất của em về cấu trúc bài toán.
-
--   **Thử nghiệm Framework & Embedding (`experiments/03_Experiment_TensorFlow_T5.ipynb`):**
-    Em đã chủ động xây dựng một pipeline song song bằng **TensorFlow/Keras và T5 embeddings** để so sánh hiệu quả. Kết quả cho thấy pipeline PyTorch/ESM-2 vẫn tốt hơn, giúp em tự tin hơn với lựa chọn công nghệ của mình.
-
--   **Thử nghiệm Kiến trúc Nâng cao (`experiments/04_Experiment_Multi_Ontology.ipynb`):**
-    Em đã thử nghiệm một kiến trúc phức tạp hơn, huấn luyện **3 mô hình riêng biệt** cho từng nhánh Ontology (BPO, CCO, MFO). Kết quả (0.184) thấp hơn, cho thấy một mô hình tổng quát duy nhất hiệu quả hơn với kiến trúc hiện tại, nhưng đây là một thử nghiệm quan trọng về mặt tư duy kiến trúc mô hình.
