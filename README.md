@@ -55,10 +55,10 @@ Repository được tổ chức một cách khoa học để dễ dàng theo dõ
 
 ```
 .
-├── notebooks/                  <-- Chứa các file code chính
+├── notebooks/                  
 │   ├── 01_Baseline_and_Ensemble_Best_Score.ipynb
-│   ├── 02_Advanced_Post_Processing_Experiments.ipynb
 │   └── experiments/              <-- Chứa các thử nghiệm
+│       ├── 02_Advanced_Post_Processing_Experiments.ipynb
 │       ├── 03_Experiment_TensorFlow_T5.ipynb
 │       └── 04_Experiment_Multi_Ontology.ipynb
 │
@@ -81,7 +81,7 @@ Repository được tổ chức một cách khoa học để dễ dàng theo dõ
 ### Bước 1: Tải mã nguồn
 
 Clone repository này về máy của bạn:
-```bash
+bash
 git clone https://github.com/nmd29io/CAFA-6-TEAM-ABC_INT34057.git
 cd CAFA-6-TEAM-ABC_INT34057```
 
